@@ -1,0 +1,15 @@
+venv/
+__pycache__/
+# Ignore everything in mock_s3
+mock_s3/*
+# But do not ignore the folder itself
+!mock_s3/
+backend/__pycache__/
+.env
+.DS_Store
+.vscode/
+.idea/
+.pytest_cache/
+.coverage
+.coverage.*
+.coverage.*
