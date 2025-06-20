@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  title: Energy Usage Upload API
+  version: 1.0.0
+  description: API for uploading energy usage CSV files, storing data in DynamoDB, and returning alerts for threshold exceedance.
+servers:
+  - url: http://localhost:8000
+paths:
+  /energy/upload:
+    post:
+      summary: Upload CSV energy usage data
+      description: Upload one or more CSV files with daily energy usage data. Each file must have headers: Date,Usage. Stores files in mock S3, records in DynamoDB, and returns alerts for days exceeding the threshold.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: CSV files to upload
+                threshold:
+                  type: number
+                  format: float
+                  default: 30
+                  description: Usage threshold for alerts
+              required:
+                - files
+      responses:
+        '200':
+          description: Upload status and alerts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  alerts:
+                    type: array
+                    items:
+                      type: string
+                  userId:
+                    type: string
+                    example: demo-user
+                  exceededThresholds:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          example: '2024-01-01'
+                        usage:
+                          type: number
+                          format: float
+                        threshold:
+                          type: number
+                          format: float
+                        filename:
+                          type: string
+                          example: data1.csv 

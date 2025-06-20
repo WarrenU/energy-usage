@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Usage CSV Upload</title>
+    <link rel="stylesheet" href="frontend.css">
+</head>
+<body>
+    <h2>Upload Energy Usage CSV Files</h2>
+    <!-- Main upload form -->
+    <form id="csv-form">
+        <!-- Drag-and-drop area and file input -->
+        <div id="drop-area">
+            <p>Drag & drop CSV files here, or <label class="btn"><input type="file" id="fileElem" multiple accept=".csv">Browse</label></p>
+            <div id="file-list"></div>
+        </div>
+        <!-- Threshold input -->
+        <label>Threshold: <input type="number" id="threshold" value="30" step="0.1"></label>
+        <button type="submit" class="btn">Upload</button>
+    </form>
+    <!-- Area for alerts and summary -->
+    <div id="alerts"></div>
+    <div id="summary"></div>
+    <script src="frontend.js"></script>
+</body>
+</html> 

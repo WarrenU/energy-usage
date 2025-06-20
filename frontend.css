@@ -1,0 +1,16 @@
+/* Basic styling for layout and drag-and-drop area */
+body { font-family: Arial, sans-serif; margin: 40px; }
+#drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    color: #888;
+    margin-bottom: 20px;
+}
+#drop-area.highlight { border-color: #6c6; }
+input[type="file"] { display: none; }
+.btn { padding: 10px 20px; background: #28a745; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+#alerts, #summary { margin-top: 20px; }
+.alert { color: #b00; }
+.log { color: #888; } 
