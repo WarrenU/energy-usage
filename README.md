@@ -2,16 +2,15 @@
 
 This project provides a FastAPI backend for uploading energy usage data from CSV files. 
 Data is stored in a local DynamoDB instance.
-Data uploaded is written to a mock_s3 directory. (local s3 setup)
+Data uploaded is written to a mock_s3 directory (local s3 setup).
 A simple HTML frontend allows you to upload many csv files (or others) at once.
 
 
 ## Requirements
 - Python 3.8+
 - pip
-- Java 17+ (for DynamoDB Local)
-- Docker (optional, for running DynamoDB Local via container)
-- AWS CLI (for table setup, install globally)
+- Docker For running DynamoDB Local via container
+- AWS CLI (for table setup, install aws cli globally)
 
 ## Setup
 
@@ -53,16 +52,17 @@ The AWS CLI is required only for creating the DynamoDB table, not for running th
 ### 4. Start DynamoDB Local
 You must have a local DynamoDB instance running on port 8000.
 
-#### Using Docker
+#### Using Docker to run dynamodb locally:
 ```
 docker run -p 8000:8000 amazon/dynamodb-local
 ```
 
 ### 5. Create the DynamoDB Table
 Once DynamoDB Local is running, you need to create the required table. This is done using the AWS CLI.
+This will need to be done if you decide to stop docker later on as theres no persistent storage.
 
 #### Step 2: Configure the AWS CLI for Local Use
-You can use any values for AWS credentials, as DynamoDB Local does not require real credentials. Run:
+You can use any values for AWS credentials, as DynamoDB Local does not require real credentials. Run this if you don't have these set, otherwise ignore:
 ```
 aws configure
 ```
@@ -98,7 +98,6 @@ uvicorn backend.main:app --reload
 The API will be available at http://127.0.0.1:8000
 
 
-
 ## Serving the Frontend Locally
 You can use Python's built-in HTTP server to serve the frontend:
 
@@ -113,7 +112,7 @@ Then open [http://localhost:8080/frontend.html](http://localhost:8080/frontend.h
 ## Editing the Threshold in the UI
 When using the frontend, you can set the usage threshold for alerts by editing the "Threshold" input field above the upload button. Enter any number (including negative values) to set your desired threshold before uploading your files.
 
-## Notes on API Gateway
+## Notes on API Gateway Requirement
 In this project, FastAPI serves as the API layer, standing in for Amazon API Gateway in a local/mock environment. In a production AWS deployment, API Gateway would be used as the entry point to the backend.
 
 ## Deploying to AWS: ECS Behind API Gateway
@@ -134,8 +133,8 @@ To deploy this project in a production AWS environment, you could:
 - **Mock S3 and Local DynamoDB:** Files are saved to a local directory (mock S3) and DynamoDB Local is used for development. In production, you would use AWS S3 and managed DynamoDB for durability, scalability, and security.
 - **No Authentication:** The project does not implement authentication or authorization for simplicity. In a real-world scenario, you would secure the API endpoints.
 - **Minimal Frontend:** The frontend is a simple HTML/JS/CSS app for demonstration. For a richer user experience, a framework like React could be used.
-- **No Automated Testing:** There are no automated tests included. For production, unit and integration tests are recommended.
+- **No Automated Testing:** There are no automated tests included. For production, unit and integration tests would be present.
 
-These trade-offs were made to keep the project focused, easy to run locally.
+These trade-offs were made to keep the project focused and easy to run locally.
 
 ---
